@@ -3,7 +3,7 @@ package org.brijframework.context;
 import java.io.File;
 import java.util.Arrays;
 
-import org.brijframework.asm.context.DefaultBootstrapContext;
+import org.brijframework.asm.context.AbstractBootstrapContext;
 import org.brijframework.asm.factories.FileFactory;
 import org.brijframework.config.EnvConfigration;
 import org.brijframework.context.config.ApplicationConfigration;
@@ -17,7 +17,7 @@ import org.brijframework.util.reflect.ReflectionUtils;
 import org.brijframework.util.resouces.YamlUtil;
 import static org.brijframework.context.constants.ApplicationConstants.*;
 
-public class ApplicationContext extends DefaultBootstrapContext {
+public class ApplicationContext extends AbstractBootstrapContext {
 	
 	private EnvConfigration configration;
 	
@@ -32,8 +32,8 @@ public class ApplicationContext extends DefaultBootstrapContext {
 	public void init() {
 		try {
 			ReflectionUtils.getClassListFromExternal().forEach(cls -> {
-				if (ContainerContext.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
-					register((Class<? extends Context>) cls);
+				if (ModuleContext.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
+					register((Class<? extends ModuleContext>) cls);
 				}
 			});
 		} catch (Exception e) {
@@ -41,8 +41,8 @@ public class ApplicationContext extends DefaultBootstrapContext {
 		}
 		try {
 			ReflectionUtils.getClassListFromInternal().forEach(cls -> {
-				if (ContainerContext.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
-					register((Class<? extends Context>) cls);
+				if (ModuleContext.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
+					register((Class<? extends ModuleContext>) cls);
 				}
 			});
 		} catch (Exception e) {
@@ -53,7 +53,7 @@ public class ApplicationContext extends DefaultBootstrapContext {
 	@Override
 	public void startup() {
 		System.err.println("=============================ApplicationContext startup==============================");
-		SupportUtil.getDepandOnSortedClassList(getClassList()).forEach((Context) -> { loadContext(Context); });
+		SupportUtil.getDepandOnSortedClassList(getClassList()).forEach((Context) ->{ loadContext(Context);});
 		System.err.println("=============================ApplicationContext started==============================");
 	}
 
