@@ -59,7 +59,10 @@ public class ApplicationContext extends AbstractBootstrapContext {
 
 	@Override
 	public void destory() {
-		
+		System.err.println("=============================ApplicationContext startup==============================");
+		SupportUtil.getDepandOnSortedClassList(getClassList()).forEach((Context) ->{ destoryContext(Context);});
+		System.err.println("=============================ApplicationContext started==============================");
+
 	}
 	
 	
