@@ -1,5 +1,9 @@
 package org.brijframework.context;
 
+import static org.brijframework.context.constants.ApplicationConstants.APPLICATION_BOOTSTRAP_CONFIG_FILENAME;
+import static org.brijframework.context.constants.ApplicationConstants.APPLICATION_BOOTSTRAP_CONFIG_FILES;
+import static org.brijframework.context.constants.ApplicationConstants.APPLICATION_BOOTSTRAP_CONFIG_LOCATION;
+
 import java.io.File;
 import java.util.Arrays;
 
@@ -9,13 +13,11 @@ import org.brijframework.config.EnvConfigration;
 import org.brijframework.context.config.ApplicationConfigration;
 import org.brijframework.support.config.BootStrapConfig;
 import org.brijframework.support.enums.ResourceType;
-import org.brijframework.support.util.SupportUtil;
 import org.brijframework.util.objects.PropertiesUtil;
 import org.brijframework.util.reflect.AnnotationUtil;
 import org.brijframework.util.reflect.InstanceUtil;
 import org.brijframework.util.reflect.ReflectionUtils;
 import org.brijframework.util.resouces.YamlUtil;
-import static org.brijframework.context.constants.ApplicationConstants.*;
 
 public class ApplicationContext extends AbstractBootstrapContext {
 	
@@ -53,18 +55,17 @@ public class ApplicationContext extends AbstractBootstrapContext {
 	@Override
 	public void startup() {
 		System.err.println("=============================ApplicationContext startup==============================");
-		SupportUtil.getDepandOnSortedClassList(getClassList()).forEach((Context) ->{ loadContext(Context);});
+		getClassList().forEach((Context) ->{ loadContext(Context);});
 		System.err.println("=============================ApplicationContext started==============================");
 	}
 
 	@Override
 	public void destory() {
 		System.err.println("=============================ApplicationContext startup==============================");
-		SupportUtil.getDepandOnSortedClassList(getClassList()).forEach((Context) ->{ destoryContext(Context);});
+		getClassList().forEach((Context) ->{ destoryContext(Context);});
 		System.err.println("=============================ApplicationContext started==============================");
 
 	}
-	
 	
 	protected void loadConfig() {
 		System.err.println("=============================ApplicationConfig Setups==============================");
