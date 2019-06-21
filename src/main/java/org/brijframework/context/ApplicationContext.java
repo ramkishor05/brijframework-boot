@@ -55,14 +55,14 @@ public class ApplicationContext extends AbstractBootstrapContext {
 	@Override
 	public void startup() {
 		System.err.println("=============================ApplicationContext startup==============================");
-		getClassList().forEach((Context) ->{ loadContext(Context);});
+		super.startup();
 		System.err.println("=============================ApplicationContext started==============================");
 	}
 
 	@Override
 	public void destory() {
 		System.err.println("=============================ApplicationContext startup==============================");
-		getClassList().forEach((Context) ->{ destoryContext(Context);});
+		
 		System.err.println("=============================ApplicationContext started==============================");
 
 	}
