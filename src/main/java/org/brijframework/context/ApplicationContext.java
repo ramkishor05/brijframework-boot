@@ -1,7 +1,7 @@
 package org.brijframework.context;
 
-import static org.brijframework.support.config.ApplicationConstants.APPLICATION_BOOTSTRAP_CONFIG_FILES;
-import static org.brijframework.support.config.ApplicationConstants.APPLICATION_BOOTSTRAP_CONFIG_PATHS;
+import static org.brijframework.support.config.SupportConstants.APPLICATION_BOOTSTRAP_CONFIG_FILES;
+import static org.brijframework.support.config.SupportConstants.APPLICATION_BOOTSTRAP_CONFIG_PATHS;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import org.brijframework.asm.context.AbstractBootstrapContext;
 import org.brijframework.asm.factories.FileFactory;
 import org.brijframework.config.EnvConfigration;
 import org.brijframework.context.config.ApplicationConfigration;
-import org.brijframework.support.config.Application;
+import org.brijframework.support.config.ApplicationBootstrap;
 import org.brijframework.support.enums.ResourceType;
 import org.brijframework.util.objects.PropertiesUtil;
 import org.brijframework.util.reflect.AnnotationUtil;
@@ -25,8 +25,7 @@ public class ApplicationContext extends AbstractBootstrapContext {
 	private EnvConfigration configration;
 	
 	public ApplicationContext() {
-		this.loadConfig();
-		this.init();
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -53,9 +52,9 @@ public class ApplicationContext extends AbstractBootstrapContext {
 	}
 
 	@Override
-	public void startup() {
+	public void start() {
 		System.err.println("=============================ApplicationContext startup==============================");
-		super.startup();
+		super.start();
 		System.err.println("=============================ApplicationContext started==============================");
 	}
 
@@ -67,7 +66,7 @@ public class ApplicationContext extends AbstractBootstrapContext {
 
 	}
 	
-	protected void loadConfig() {
+	public void load() {
 		System.err.println("=============================Application Configration startup=========================");
 		
 		EnvConfigration configration=getConfigration();
@@ -78,6 +77,9 @@ public class ApplicationContext extends AbstractBootstrapContext {
 			configration.getProperties().put(APPLICATION_BOOTSTRAP_CONFIG_PATHS, APPLICATION_BOOTSTRAP_CONFIG_FILES);
 		}
 		loadFileLocateConfig(configration);
+		configration.getProperties().entrySet().stream().sorted((entry1,entry2)->((String)entry1.getKey()).compareToIgnoreCase(((String)entry2.getKey()))).forEach(entry->{
+			System.err.println(entry.getKey()+"="+entry.getValue());
+		});
 		System.err.println("=============================Application Configration started==========================");
 	}
 	
@@ -88,8 +90,8 @@ public class ApplicationContext extends AbstractBootstrapContext {
 		}
 		try {
 			ReflectionUtils.getClassListFromInternal().forEach(cls -> {
-				if (cls.isAnnotationPresent(Application.class)) {
-					Application config=(Application) AnnotationUtil.getAnnotation(cls, Application.class);
+				if (cls.isAnnotationPresent(ApplicationBootstrap.class)) {
+					ApplicationBootstrap config=(ApplicationBootstrap) AnnotationUtil.getAnnotation(cls, ApplicationBootstrap.class);
 					List<File> files=new ArrayList<>();
 					FileFactory.getResources(Arrays.asList(config.paths().split("\\|"))).forEach(file -> {
 						System.out.println("Loading Application = "+file);
@@ -131,7 +133,7 @@ public class ApplicationContext extends AbstractBootstrapContext {
 				configration.getProperties().putAll(PropertiesUtil.getProperties(filePath));
 			}
 			if(filePath.toString().endsWith(ResourceType.YML)||filePath.toString().endsWith(ResourceType.YAML)) {
-				configration.getProperties().putAll(YamlUtil.getProperties(filePath));
+				configration.getProperties().putAll(YamlUtil.getEnvProperties(filePath));
 			}
 			this.getProperties().putAll(configration.getProperties());
 			}
