@@ -59,7 +59,7 @@ public class ApplicationContext extends AbstractBootstrapContext {
 	}
 
 	@Override
-	public void destory() {
+	public void stop() {
 		System.err.println("=============================ApplicationContext startup==============================");
 		
 		System.err.println("=============================ApplicationContext started==============================");
