@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.brijframework.asm.context.AbstractBootstrapContext;
-import org.brijframework.asm.factories.FileFactory;
 import org.brijframework.config.EnvConfigration;
 import org.brijframework.context.config.ApplicationConfigration;
+import org.brijframework.context.impl.AbstractBootstrapContext;
+import org.brijframework.factories.impl.FileFactory;
 import org.brijframework.support.config.ApplicationBootstrap;
 import org.brijframework.support.enums.ResourceType;
 import org.brijframework.util.objects.PropertiesUtil;
@@ -70,7 +70,7 @@ public class ApplicationContext extends AbstractBootstrapContext {
 		System.err.println("=============================Application Configration startup=========================");
 		
 		EnvConfigration configration=getConfigration();
-		//configration.getProperties().putAll(System.getProperties());
+		configration.getProperties().putAll(System.getProperties());
 		findAnnotationConfig(configration);
 		findFileLocateConfig(configration);
 		if(!configration.getProperties().containsKey(APPLICATION_BOOTSTRAP_CONFIG_PATHS)) {

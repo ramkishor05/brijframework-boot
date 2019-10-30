@@ -23,14 +23,14 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.brijframework</groupId>
-			<artifactId>brijframework-asm</artifactId>
+			<artifactId>brijframework-core</artifactId>
 			<version>0.0.1</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.brijframework</groupId>
-			<artifactId>brijframework-support</artifactId>
+			<artifactId>brijframework-bean</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 	</dependencies>

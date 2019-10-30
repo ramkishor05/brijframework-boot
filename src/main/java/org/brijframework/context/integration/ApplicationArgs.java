@@ -15,14 +15,14 @@ public class ApplicationArgs {
 	
 	public List<String> getNonParams() {
 		if(nonParams==null) {
-			nonParams=new ArrayList<>();
+			nonParams = new ArrayList<>();
 		}
 		return nonParams;
 	}
 	
 	public Map<String, Object> getWithParams() {
 		if(withParams==null) {
-			withParams=new HashMap<>();
+			withParams = new HashMap<>();
 		}
 		return withParams;
 	}

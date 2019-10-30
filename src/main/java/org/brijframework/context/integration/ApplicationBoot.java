@@ -1,9 +1,10 @@
 package org.brijframework.context.integration;
 
-import org.brijframework.asm.factories.AbstractFactory;
 import org.brijframework.context.ApplicationContext;
+import org.brijframework.factories.impl.AbstractFactory;
 
-public class ApplicationBoot extends AbstractFactory<String, Object> {
+public class ApplicationBoot extends AbstractFactory<String, ApplicationContext> {
+	
 	private ApplicationArgs arguments= new ApplicationArgs();
 	static ApplicationBoot integration;
 
@@ -37,19 +38,22 @@ public class ApplicationBoot extends AbstractFactory<String, Object> {
 		context.load();
 		context.init();
 		context.start();
-		System.out.println("" + context.hashCode());
-		this.register("" + context.hashCode(), context);
+		this.register(ApplicationContext.class.getName(), context);
 		return this;
 	}
 
 	@Override
-	protected void preregister(String key, Object value) {
+	protected void preregister(String key, ApplicationContext value) {
 
 	}
 
 	@Override
-	protected void postregister(String key, Object value) {
+	protected void postregister(String key, ApplicationContext value) {
 
+	}
+	
+	public ApplicationContext getApplicationContext(){
+		return getCache().get(ApplicationContext.class.getName());
 	}
 
 }
