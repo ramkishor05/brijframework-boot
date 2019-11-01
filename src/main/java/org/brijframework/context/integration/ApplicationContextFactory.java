@@ -3,29 +3,25 @@ package org.brijframework.context.integration;
 import org.brijframework.context.ApplicationContext;
 import org.brijframework.factories.impl.AbstractFactory;
 
-public class ApplicationBoot extends AbstractFactory<String, ApplicationContext> {
+public class ApplicationContextFactory extends AbstractFactory<String, ApplicationContext> {
 	
 	private ApplicationArgs arguments= new ApplicationArgs();
-	static ApplicationBoot integration;
+	private static ApplicationContextFactory factory;
 
-	private ApplicationBoot() {
+	private ApplicationContextFactory() {
 	}
 
-	public static ApplicationBoot bootstraps(String[] varArgs) {
-		if (integration == null) {
-			integration = new ApplicationBoot();
-			integration.getArguments().initial(varArgs);
-			integration.loadFactory();
+	public static ApplicationContextFactory getFactory(String[] varArgs) {
+		if (factory == null) {
+			factory = new ApplicationContextFactory();
+			factory.getArguments().initial(varArgs);
+			factory.loadFactory();
 		}
-		return integration;
+		return factory;
 	}
 
-	public static ApplicationBoot bootstraps() {
-		if (integration == null) {
-			integration = new ApplicationBoot();
-			integration.loadFactory();
-		}
-		return integration;
+	public static ApplicationContextFactory getFactory() {
+		return getFactory(new String[]{}) ;
 	}
 	
 	public ApplicationArgs getArguments() {
@@ -33,7 +29,7 @@ public class ApplicationBoot extends AbstractFactory<String, ApplicationContext>
 	}
 
 	@Override
-	public ApplicationBoot loadFactory() {
+	public ApplicationContextFactory loadFactory() {
 		ApplicationContext context = new ApplicationContext();
 		context.load();
 		context.init();
