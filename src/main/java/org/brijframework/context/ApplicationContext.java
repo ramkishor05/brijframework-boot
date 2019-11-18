@@ -1,7 +1,6 @@
 package org.brijframework.context;
 
 import org.brijframework.context.bootstrap.impl.AbstractBootstrapContext;
-import org.brijframework.model.context.ModelContext;
 import org.brijframework.util.reflect.InstanceUtil;
 import org.brijframework.util.reflect.ReflectionUtils;
 
@@ -44,11 +43,8 @@ public class ApplicationContext extends AbstractBootstrapContext {
 	@Override
 	public void stop() {
 		System.err.println("=============================ApplicationContext startup==============================");
-
+		super.stop();
 		System.err.println("=============================ApplicationContext started==============================");
-
 	}
-
-	
 
 }

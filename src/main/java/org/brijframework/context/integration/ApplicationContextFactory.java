@@ -31,10 +31,9 @@ public class ApplicationContextFactory extends AbstractFactory<String, Applicati
 	@Override
 	public ApplicationContextFactory loadFactory() {
 		ApplicationContext context = new ApplicationContext();
-		context.load();
-		context.init();
 		context.start();
 		this.register(ApplicationContext.class.getName(), context);
+		this.register(ApplicationContext.class.getSimpleName(), context);
 		return this;
 	}
 
