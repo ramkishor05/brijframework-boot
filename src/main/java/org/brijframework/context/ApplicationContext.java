@@ -1,5 +1,6 @@
 package org.brijframework.context;
 
+import org.brijframework.container.BootstrapContainer;
 import org.brijframework.context.bootstrap.impl.AbstractBootstrapContext;
 import org.brijframework.util.reflect.InstanceUtil;
 import org.brijframework.util.reflect.ReflectionUtils;
@@ -7,7 +8,6 @@ import org.brijframework.util.reflect.ReflectionUtils;
 public class ApplicationContext extends AbstractBootstrapContext {
 
 	public ApplicationContext() {
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -15,8 +15,8 @@ public class ApplicationContext extends AbstractBootstrapContext {
 	public void init() {
 		try {
 			ReflectionUtils.getClassListFromExternal().forEach(cls -> {
-				if (ModuleContext.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
-					register((Class<? extends ModuleContext>) cls);
+				if (BootstrapContainer.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
+					register((Class<? extends BootstrapContainer>) cls);
 				}
 			});
 		} catch (Exception e) {
@@ -24,8 +24,8 @@ public class ApplicationContext extends AbstractBootstrapContext {
 		}
 		try {
 			ReflectionUtils.getClassListFromInternal().forEach(cls -> {
-				if (ModuleContext.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
-					register((Class<? extends ModuleContext>) cls);
+				if (BootstrapContainer.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
+					register((Class<? extends BootstrapContainer>) cls);
 				}
 			});
 		} catch (Exception e) {

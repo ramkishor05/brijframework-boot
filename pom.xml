@@ -23,14 +23,9 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.brijframework</groupId>
-			<artifactId>brijframework-core</artifactId>
-			<version>0.0.1</version>
-		</dependency> -->
 		<dependency>
 			<groupId>org.brijframework</groupId>
-			<artifactId>brijframework-bean</artifactId>
+			<artifactId>brijframework-resources</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 	</dependencies>
