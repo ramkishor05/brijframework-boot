@@ -5,6 +5,7 @@ import java.util.Properties;
 import org.brijframework.config.EnvConfigration;
 
 public class ApplicationConfigration implements EnvConfigration{
+	
 	Properties  properties;
 	
 	@Override

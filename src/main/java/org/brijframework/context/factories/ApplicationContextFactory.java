@@ -4,6 +4,7 @@ import org.brijframework.context.ApplicationContext;
 import org.brijframework.context.args.ApplicationArgs;
 import org.brijframework.factories.impl.AbstractFactory;
 import org.brijframework.support.config.Assignable;
+import org.brijframework.util.printer.ConsolePrint;
 import org.brijframework.util.reflect.InstanceUtil;
 import org.brijframework.util.reflect.ReflectionUtils;
 
@@ -36,10 +37,12 @@ public class ApplicationContextFactory extends AbstractFactory<String, Applicati
 	@Override
 	public ApplicationContextFactory loadFactory() {
 		try {
+			ConsolePrint.banner();
+			ConsolePrint.screen("Application startup luncher");
+			ConsolePrint.screen(this.getClass().getSimpleName(), "Lunching the factory to start the ApplicationContext");
 			ReflectionUtils.getClassListFromExternal().forEach(applicationContextClass -> {
 				if (ApplicationContext.class.isAssignableFrom(applicationContextClass) && InstanceUtil.isAssignable(applicationContextClass)) {
 					ApplicationContext context = (ApplicationContext) InstanceUtil.getInstance(applicationContextClass);
-					context.init();
 					context.start();
 					this.register(ApplicationContext.class.getName(), context);
 					this.register(ApplicationContext.class.getSimpleName(), context);
@@ -48,15 +51,17 @@ public class ApplicationContextFactory extends AbstractFactory<String, Applicati
 			ReflectionUtils.getClassListFromInternal().forEach(applicationContextClass -> {
 				if (ApplicationContext.class.isAssignableFrom(applicationContextClass) && InstanceUtil.isAssignable(applicationContextClass)) {
 					ApplicationContext context = (ApplicationContext) InstanceUtil.getInstance(applicationContextClass);
-					context.init();
 					context.start();
 					this.register(ApplicationContext.class.getName(), context);
 					this.register(ApplicationContext.class.getSimpleName(), context);
 				}
 			});
+			ConsolePrint.screen(this.getClass().getSimpleName(), "Lunched the factory to start the ApplicationContext");
 		} catch (Exception e) {
 			e.printStackTrace();
+			ConsolePrint.screen(this.getClass().getSimpleName(), "Error to lunch the factory to start the ApplicationContext");
 		}
+		ConsolePrint.screen("Application Successfully started");
 		return this;
 	}
 

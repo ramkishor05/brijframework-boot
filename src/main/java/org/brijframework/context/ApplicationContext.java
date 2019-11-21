@@ -33,18 +33,4 @@ public class ApplicationContext extends AbstractBootstrapContext {
 		}
 	}
 
-	@Override
-	public void start() {
-		System.err.println("=============================ApplicationContext startup==============================");
-		super.start();
-		System.err.println("=============================ApplicationContext started==============================");
-	}
-
-	@Override
-	public void stop() {
-		System.err.println("=============================ApplicationContext startup==============================");
-		super.stop();
-		System.err.println("=============================ApplicationContext started==============================");
-	}
-
 }
