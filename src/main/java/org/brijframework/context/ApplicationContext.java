@@ -1,7 +1,7 @@
 package org.brijframework.context;
 
-import org.brijframework.container.BootstrapContainer;
-import org.brijframework.context.bootstrap.impl.AbstractBootstrapContext;
+import org.brijframework.container.bootstrap.BootstrapContainer;
+import org.brijframework.context.impl.bootstrap.AbstractBootstrapContext;
 import org.brijframework.util.reflect.InstanceUtil;
 import org.brijframework.util.reflect.ReflectionUtils;
 
