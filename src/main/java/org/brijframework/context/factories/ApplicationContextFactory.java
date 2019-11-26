@@ -3,7 +3,7 @@ package org.brijframework.context.factories;
 import org.brijframework.context.ApplicationContext;
 import org.brijframework.context.args.ApplicationArgs;
 import org.brijframework.factories.impl.AbstractFactory;
-import org.brijframework.support.config.Assignable;
+import org.brijframework.support.config.SingletonFactory;
 import org.brijframework.util.printer.ConsolePrint;
 import org.brijframework.util.reflect.InstanceUtil;
 import org.brijframework.util.reflect.ReflectionUtils;
@@ -16,7 +16,7 @@ public class ApplicationContextFactory extends AbstractFactory<String, Applicati
 	private ApplicationContextFactory() {
 	}
 
-	@Assignable
+	@SingletonFactory
 	public static ApplicationContextFactory getFactory(String[] varArgs) {
 		if (factory == null) {
 			factory = new ApplicationContextFactory();

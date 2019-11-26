@@ -4,7 +4,7 @@ import org.brijframework.container.impl.bootstrap.AbstractBootstrapContainer;
 import org.brijframework.context.group.BootstrapGroup;
 import org.brijframework.factories.bootstrap.BootstrapFactory;
 import org.brijframework.group.Group;
-import org.brijframework.support.config.Assignable;
+import org.brijframework.support.config.SingletonFactory;
 import org.brijframework.util.reflect.InstanceUtil;
 import org.brijframework.util.reflect.ReflectionUtils;
 
@@ -12,7 +12,7 @@ public class ApplicationContainer extends AbstractBootstrapContainer {
 
 	private static ApplicationContainer container;
 
-	@Assignable
+	@SingletonFactory
 	public static ApplicationContainer getContainer() {
 		if (container == null) {
 			container = new ApplicationContainer();
