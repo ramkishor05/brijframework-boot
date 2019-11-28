@@ -79,5 +79,10 @@ public class ApplicationContextFactory extends AbstractFactory<String, Applicati
 		return getCache().get(ApplicationContext.class.getName());
 	}
 
+	@Override
+	protected void loadContainer(String key, ApplicationContext value) {
+		
+	}
+
 
 }
