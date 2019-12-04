@@ -4,7 +4,7 @@ import org.brijframework.context.ApplicationContext;
 import org.brijframework.context.args.ApplicationArgs;
 import org.brijframework.factories.impl.AbstractFactory;
 import org.brijframework.support.config.SingletonFactory;
-import org.brijframework.util.printer.ConsolePrint;
+import org.brijframework.util.printer.LoggerConsole;
 import org.brijframework.util.reflect.InstanceUtil;
 import org.brijframework.util.reflect.ReflectionUtils;
 
@@ -37,9 +37,9 @@ public class ApplicationContextFactory extends AbstractFactory<String, Applicati
 	@Override
 	public ApplicationContextFactory loadFactory() {
 		try {
-			ConsolePrint.banner();
-			ConsolePrint.screen("Application startup luncher");
-			ConsolePrint.screen(this.getClass().getSimpleName(), "Lunching the factory to start the ApplicationContext");
+			LoggerConsole.banner();
+			LoggerConsole.screen("Application startup luncher");
+			LoggerConsole.screen(this.getClass().getSimpleName(), "Lunching the factory to start the ApplicationContext");
 			ReflectionUtils.getClassListFromExternal().forEach(applicationContextClass -> {
 				if (ApplicationContext.class.isAssignableFrom(applicationContextClass) && InstanceUtil.isAssignable(applicationContextClass)) {
 					ApplicationContext context = (ApplicationContext) InstanceUtil.getInstance(applicationContextClass);
@@ -56,12 +56,12 @@ public class ApplicationContextFactory extends AbstractFactory<String, Applicati
 					this.register(ApplicationContext.class.getSimpleName(), context);
 				}
 			});
-			ConsolePrint.screen(this.getClass().getSimpleName(), "Lunched the factory to start the ApplicationContext");
+			LoggerConsole.screen(this.getClass().getSimpleName(), "Lunched the factory to start the ApplicationContext");
 		} catch (Exception e) {
 			e.printStackTrace();
-			ConsolePrint.screen(this.getClass().getSimpleName(), "Error to lunch the factory to start the ApplicationContext");
+			LoggerConsole.screen(this.getClass().getSimpleName(), "Error to lunch the factory to start the ApplicationContext");
 		}
-		ConsolePrint.screen("Application Successfully started");
+		LoggerConsole.screen("Application Successfully started");
 		return this;
 	}
 
@@ -78,11 +78,5 @@ public class ApplicationContextFactory extends AbstractFactory<String, Applicati
 	public ApplicationContext getApplicationContext(){
 		return getCache().get(ApplicationContext.class.getName());
 	}
-
-	@Override
-	protected void loadContainer(String key, ApplicationContext value) {
-		
-	}
-
 
 }

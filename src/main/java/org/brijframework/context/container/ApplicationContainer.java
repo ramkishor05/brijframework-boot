@@ -48,7 +48,6 @@ public class ApplicationContainer extends AbstractBootstrapContainer {
 		Group group = get(groupKey);
 		if (group == null) {
 			group = new BootstrapGroup(groupKey);
-			System.err.println("Group        : " + groupKey);
 			this.add(groupKey, group);
 		}
 		return group;
