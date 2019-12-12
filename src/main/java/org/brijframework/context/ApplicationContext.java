@@ -2,8 +2,8 @@ package org.brijframework.context;
 
 import org.brijframework.container.bootstrap.BootstrapContainer;
 import org.brijframework.context.impl.bootstrap.AbstractBootstrapContext;
+import org.brijframework.util.factories.ReflectionFactory;
 import org.brijframework.util.reflect.InstanceUtil;
-import org.brijframework.util.reflect.ReflectionUtils;
 
 public class ApplicationContext extends AbstractBootstrapContext {
 
@@ -14,7 +14,7 @@ public class ApplicationContext extends AbstractBootstrapContext {
 	@Override
 	public void init() {
 		try {
-			ReflectionUtils.getClassListFromExternal().forEach(cls -> {
+			ReflectionFactory.getFactory().getClassListFromExternal().forEach(cls -> {
 				if (BootstrapContainer.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
 					register((Class<? extends BootstrapContainer>) cls);
 				}
@@ -23,7 +23,7 @@ public class ApplicationContext extends AbstractBootstrapContext {
 			e.printStackTrace();
 		}
 		try {
-			ReflectionUtils.getClassListFromInternal().forEach(cls -> {
+			ReflectionFactory.getFactory().getClassListFromInternal().forEach(cls -> {
 				if (BootstrapContainer.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
 					register((Class<? extends BootstrapContainer>) cls);
 				}

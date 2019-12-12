@@ -5,8 +5,8 @@ import org.brijframework.context.group.BootstrapGroup;
 import org.brijframework.factories.bootstrap.BootstrapFactory;
 import org.brijframework.group.Group;
 import org.brijframework.support.config.SingletonFactory;
+import org.brijframework.util.factories.ReflectionFactory;
 import org.brijframework.util.reflect.InstanceUtil;
-import org.brijframework.util.reflect.ReflectionUtils;
 
 public class ApplicationContainer extends AbstractBootstrapContainer {
 
@@ -24,7 +24,7 @@ public class ApplicationContainer extends AbstractBootstrapContainer {
 	@Override
 	public void init() {
 		try {
-			ReflectionUtils.getClassListFromExternal().forEach(cls -> {
+			ReflectionFactory.getFactory().getClassListFromExternal().forEach(cls -> {
 				if (BootstrapFactory.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
 					register((Class<? extends BootstrapFactory<?,?>>) cls);
 				}
@@ -33,7 +33,7 @@ public class ApplicationContainer extends AbstractBootstrapContainer {
 			e.printStackTrace();
 		}
 		try {
-			ReflectionUtils.getClassListFromInternal().forEach(cls -> {
+			ReflectionFactory.getFactory().getClassListFromInternal().forEach(cls -> {
 				if (BootstrapFactory.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
 					register((Class<? extends BootstrapFactory<?,?>>) cls);
 				}

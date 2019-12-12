@@ -4,9 +4,9 @@ import org.brijframework.context.ApplicationContext;
 import org.brijframework.context.args.ApplicationArgs;
 import org.brijframework.factories.impl.AbstractFactory;
 import org.brijframework.support.config.SingletonFactory;
+import org.brijframework.util.factories.ReflectionFactory;
 import org.brijframework.util.printer.LoggerConsole;
 import org.brijframework.util.reflect.InstanceUtil;
-import org.brijframework.util.reflect.ReflectionUtils;
 
 public class ApplicationContextFactory extends AbstractFactory<String, ApplicationContext> {
 	
@@ -40,7 +40,7 @@ public class ApplicationContextFactory extends AbstractFactory<String, Applicati
 			LoggerConsole.banner();
 			LoggerConsole.screen("Application startup luncher");
 			LoggerConsole.screen(this.getClass().getSimpleName(), "Lunching the factory to start the ApplicationContext");
-			ReflectionUtils.getClassListFromExternal().forEach(applicationContextClass -> {
+			ReflectionFactory.getFactory().getClassListFromExternal().forEach(applicationContextClass -> {
 				if (ApplicationContext.class.isAssignableFrom(applicationContextClass) && InstanceUtil.isAssignable(applicationContextClass)) {
 					ApplicationContext context = (ApplicationContext) InstanceUtil.getInstance(applicationContextClass);
 					context.start();
@@ -48,7 +48,7 @@ public class ApplicationContextFactory extends AbstractFactory<String, Applicati
 					this.register(ApplicationContext.class.getSimpleName(), context);
 				}
 			});
-			ReflectionUtils.getClassListFromInternal().forEach(applicationContextClass -> {
+			ReflectionFactory.getFactory().getClassListFromInternal().forEach(applicationContextClass -> {
 				if (ApplicationContext.class.isAssignableFrom(applicationContextClass) && InstanceUtil.isAssignable(applicationContextClass)) {
 					ApplicationContext context = (ApplicationContext) InstanceUtil.getInstance(applicationContextClass);
 					context.start();
