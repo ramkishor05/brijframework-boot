@@ -1,13 +1,13 @@
-package org.brijframework.context;
+package org.brijframework.boot.context;
 
 import org.brijframework.container.bootstrap.BootstrapContainer;
 import org.brijframework.context.impl.bootstrap.AbstractBootstrapContext;
 import org.brijframework.util.factories.ReflectionFactory;
 import org.brijframework.util.reflect.InstanceUtil;
 
-public class ApplicationContext extends AbstractBootstrapContext {
+public class BootstrapContextImpl extends AbstractBootstrapContext {
 
-	public ApplicationContext() {
+	public BootstrapContextImpl() {
 	}
 
 	@SuppressWarnings("unchecked")

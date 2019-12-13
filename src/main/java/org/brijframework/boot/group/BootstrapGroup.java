@@ -1,4 +1,4 @@
-package org.brijframework.context.group;
+package org.brijframework.boot.group;
 
 import java.util.concurrent.ConcurrentHashMap;
 

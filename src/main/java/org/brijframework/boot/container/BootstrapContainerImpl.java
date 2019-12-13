@@ -1,21 +1,21 @@
-package org.brijframework.context.container;
+package org.brijframework.boot.container;
 
+import org.brijframework.boot.group.BootstrapGroup;
 import org.brijframework.container.impl.bootstrap.AbstractBootstrapContainer;
-import org.brijframework.context.group.BootstrapGroup;
 import org.brijframework.factories.bootstrap.BootstrapFactory;
 import org.brijframework.group.Group;
-import org.brijframework.support.config.SingletonFactory;
+import org.brijframework.support.factories.SingletonFactory;
 import org.brijframework.util.factories.ReflectionFactory;
 import org.brijframework.util.reflect.InstanceUtil;
 
-public class ApplicationContainer extends AbstractBootstrapContainer {
+public class BootstrapContainerImpl extends AbstractBootstrapContainer {
 
-	private static ApplicationContainer container;
+	private static BootstrapContainerImpl container;
 
 	@SingletonFactory
-	public static ApplicationContainer getContainer() {
+	public static BootstrapContainerImpl getContainer() {
 		if (container == null) {
-			container = new ApplicationContainer();
+			container = new BootstrapContainerImpl();
 		}
 		return container;
 	}
