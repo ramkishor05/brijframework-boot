@@ -1,4 +1,4 @@
-package org.brijframework.boot.factories;
+package org.brijframework.boot.runner;
 
 import org.brijframework.boot.context.BootstrapContextImpl;
 import org.brijframework.boot.context.args.BootstrapArgs;
@@ -9,26 +9,26 @@ import org.brijframework.util.factories.ReflectionFactory;
 import org.brijframework.util.printer.LoggerConsole;
 import org.brijframework.util.reflect.InstanceUtil;
 
-public class BootstrapContextFactory extends AbstractFactory<String, BootstrapContext> {
+public class ApplicationContextRunner extends AbstractFactory<String, BootstrapContext> {
 	
 	private BootstrapArgs arguments= new BootstrapArgs();
-	private static BootstrapContextFactory factory;
+	private static ApplicationContextRunner factory;
 
-	private BootstrapContextFactory() {
+	private ApplicationContextRunner() {
 	}
 
 	@SingletonFactory
-	public static BootstrapContextFactory getFactory(String[] varArgs) {
+	public static ApplicationContextRunner run(String[] varArgs) {
 		if (factory == null) {
-			factory = new BootstrapContextFactory();
+			factory = new ApplicationContextRunner();
 			factory.getArguments().initial(varArgs);
 			factory.loadFactory();
 		}
 		return factory;
 	}
 
-	public static BootstrapContextFactory getFactory() {
-		return getFactory(new String[]{}) ;
+	public static ApplicationContextRunner run() {
+		return run(new String[]{}) ;
 	}
 	
 	public BootstrapArgs getArguments() {
@@ -36,7 +36,7 @@ public class BootstrapContextFactory extends AbstractFactory<String, BootstrapCo
 	}
 
 	@Override
-	public BootstrapContextFactory loadFactory() {
+	public ApplicationContextRunner loadFactory() {
 		try {
 			LoggerConsole.banner();
 			LoggerConsole.screen("Application startup luncher");
@@ -79,5 +79,5 @@ public class BootstrapContextFactory extends AbstractFactory<String, BootstrapCo
 	public BootstrapContext getApplicationContext(){
 		return getCache().get(BootstrapContext.class.getName());
 	}
-
+	
 }
