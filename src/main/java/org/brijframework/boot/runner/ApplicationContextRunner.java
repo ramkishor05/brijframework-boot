@@ -41,7 +41,7 @@ public class ApplicationContextRunner extends AbstractFactory<String, BootstrapC
 			LoggerConsole.banner();
 			LoggerConsole.screen("Application startup luncher");
 			LoggerConsole.screen(this.getClass().getSimpleName(), "Lunching the factory to start the ApplicationContext");
-			ReflectionFactory.getFactory().getClassListFromExternal().forEach(applicationContextClass -> {
+			ReflectionFactory.getFactory().getExternalClassList().forEach(applicationContextClass -> {
 				if (BootstrapContext.class.isAssignableFrom(applicationContextClass) && InstanceUtil.isAssignable(applicationContextClass)) {
 					BootstrapContext context = (BootstrapContext) InstanceUtil.getInstance(applicationContextClass);
 					context.start();
@@ -49,7 +49,7 @@ public class ApplicationContextRunner extends AbstractFactory<String, BootstrapC
 					this.register(BootstrapContext.class.getSimpleName(), context);
 				}
 			});
-			ReflectionFactory.getFactory().getClassListFromInternal().forEach(applicationContextClass -> {
+			ReflectionFactory.getFactory().getInternalClassList().forEach(applicationContextClass -> {
 				if (BootstrapContextImpl.class.isAssignableFrom(applicationContextClass) && InstanceUtil.isAssignable(applicationContextClass)) {
 					BootstrapContext context = (BootstrapContext) InstanceUtil.getInstance(applicationContextClass);
 					context.start();

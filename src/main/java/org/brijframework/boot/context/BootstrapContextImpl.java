@@ -14,7 +14,7 @@ public class BootstrapContextImpl extends AbstractBootstrapContext {
 	@Override
 	public void init() {
 		try {
-			ReflectionFactory.getFactory().getClassListFromExternal().forEach(cls -> {
+			ReflectionFactory.getFactory().getExternalClassList().forEach(cls -> {
 				if (BootstrapContainer.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
 					register((Class<? extends BootstrapContainer>) cls);
 				}
@@ -23,7 +23,7 @@ public class BootstrapContextImpl extends AbstractBootstrapContext {
 			e.printStackTrace();
 		}
 		try {
-			ReflectionFactory.getFactory().getClassListFromInternal().forEach(cls -> {
+			ReflectionFactory.getFactory().getInternalClassList().forEach(cls -> {
 				if (BootstrapContainer.class.isAssignableFrom(cls) && InstanceUtil.isAssignable(cls)) {
 					register((Class<? extends BootstrapContainer>) cls);
 				}
