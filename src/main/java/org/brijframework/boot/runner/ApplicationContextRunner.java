@@ -73,7 +73,7 @@ public class ApplicationContextRunner extends AbstractFactory<String, BootstrapC
 
 	@Override
 	protected void postregister(String key, BootstrapContext value) {
-
+		LoggerConsole.screen("ApplicationContext", "Lunched the factory to start the ApplicationContext");
 	}
 	
 	public BootstrapContext getApplicationContext(){
